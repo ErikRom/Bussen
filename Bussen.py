@@ -11,7 +11,7 @@ import random as rand
 
 #------------------------------------random------------------------------------ #
 listan = []
-html
+
 # ---------------------------- Klassdefinitioner ------------------------------ #
 class Person():
     """ Person är en klass för att representera personer i bussen. Varje objekt
