@@ -8,17 +8,19 @@ lagrar passagerare i en lista.
 """
 # ------------------------- Biblioteksimportering ----------------------------- #
 import random as rand
+import time
+# ---------------------------------- listor ----------------------------------- #
+namnLista = ["Jack", "Erik", "Bob", "Anna", "Leo", "Nikodemus", "Samuel", "David", "Lucas", "Marcus", "Noah", "Simon",
+             "Harley", "Abigale", "Magdalena", "Marie", "Lewis", "John", "Gus", "Robin", "Jakob", "Chris", "Jimmy",
+             "Clay", "Gus", "Melvin", "Isak", "Kunigunda", "Candice", "Candide"]
+buss = []
+ålder_lista = []
 
-#------------------------------------random------------------------------------ #
-namnLista = [Jack, Erik, Bob, Anna, Leo, Nikodemus, Samuel, David, Lucas, Marcus, Noah, Simon, Harley, Abigale, Magdalena, Marie, Lewis, John, Gus, Robin, Jakob]
-personLista = []
-
-
+    #Person är en klass för att representera personer i bussen. Varje objekt
+    #som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
+    #alternativt modifiera respektive attribut
 # ---------------------------- Klassdefinitioner ------------------------------ #
 class Person():
-    """ Person är en klass för att representera personer i bussen. Varje objekt
-    som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
-    alternativt modifiera respektive attribut. """
     def __init__(self, namn, ålder):
         self.namn = namn
         self.ålder = ålder
@@ -44,36 +46,44 @@ class Person():
 # ------------------------- Funktionsdefinitioner ---------------------------- #
 
 # Lägger till en ny person i bussen.
-def plockaUpp(Person):
-    personLista.append(person)
-    self.namn(rand.choice(namnLista))
-    self.ålder(rand.randint(1, 120))
+def plockaUpp():
+    if len(buss) == 25:
+        print("Bussen är full, någon behöver gå av.")
+    else:
+        antalUpp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
+        for räknare in range(antalUpp):
+            namn = rand.choice(namnLista)
+            namnLista.remove(namn)
+            ålder = rand.randint(1, 120)
+            person = Person(namn, ålder)
+            buss.append(person)
 
-    antalUpp = input("Hur många passagerare vill du plocka upp?" "\n-> ")
-    passagerare.append(antalUpp)
-    print(f"Plockade upp {antalUpp} passagerare.")
+        print(f"Plockade upp {antalUpp} personer.")
 
 # Avlägsnar en person från bussen.
-def gåAv(passagerare):
+def gåAv():
     hurMångaAv = int(input("Hur många passagerare vill du ska gå av?" "\n-> "))
     if hurMångaAv == 1:
         vemAv = input("Vem vill du ska gå av?" "\n-> ")
-        passagerare.pop(vemAv) #hur ska man få inte indexnummret att gå av? kan man söka upp vilket indexnummer det är, eller kan man döpa om indexnummret till passagerarnamnet? kommer fuckas upp sen när man sorterar.
+        buss.pop(vemAv) #hur ska man få inte indexnummret att gå av? kan man söka upp vilket indexnummer det är, eller kan man döpa om indexnummret till passagerarnamnet? kommer fuckas upp sen när man sorterar.
         print(f"{vemAv} gick av.")
     else:
         HurMångaAv = int(input("Hur många vill du ska gå av=" "\n-> "))
         vilkaAv = input("Vilka vill du ska gå av?" "\n1.-> ")
-        passagerare.pop(HurMångaAv)
+        buss.pop(HurMångaAv)
         print(f"{vilkaAv} gick av")
 
 # Listar alla passagerare på bussen.
 def skrivUt():
-    print(listan)
+    for person in buss:
+        print(person.namn, person.ålder)
 
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagdÅlder():
-    totalÅlder = sum(listan)
-    print(f"Den sammanlagda åldern av passagerarna är {toatlÅlder}")
+    ålder = 0
+    for person in buss:
+        ålder += person.ålder
+    print(f"Den sammanlagda åldern av passagerarna är {ålder}")
 
 # Skriver ut medelåldern på passagerarna i bussen.
 def medelÅlder():
@@ -82,29 +92,31 @@ def medelÅlder():
 
 # Skriver ut personen som är äldst på bussen.
 def äldst():
-    äldstaPassageraren = max(listan)
-    print(f"Den äldsta passageraren är {äldstaPassageraren}")
+    for person in buss:
+        ålder_lista.append(person.ålder)
+    äldsta_passageraren = max(ålder_lista)
+    print(f"Den äldsta passageraren är {äldsta_passageraren}")
 
 # Sorterar bussen, antingen efter namn i bokstavsordning eller efter ålder.
 def busSort():
-    sorteraHur = input("Vill du sordera passagerarna efter namn- eller åldersordning?(n/å)" "\n-> ")
-    if sorteraHur == namn:
-        framEllerBak = input("Fram- eller baklänges?(f/b)" "\n-> ")
+    sortera_hur = input("Vill du sortera passagerarna efter namn- eller åldersordning?(n/å)" "\n-> ")
+    if sortera_hur == "n":
+        fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
         #nånting
     else:
-        framEllerBak = input("Fram- eller baklänges?(f/b)" "\n-> ")
-        if framEllerBak == f:
-            listan = listan.sort
-            print(listan)
+        fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
+        if fram_eller_ak == "f":
+            passagerare = buss.sort
+            print(passagerare)
         else:
-            listan = listan[::-1]
-            print(listan)
+            passagerare = buss.sort[::-1]
+            print(passagerare)
 
 # Skriver ut en lista på alla passagerare inom ett visst åldersspann.
-def hittaPassagerare(åldersSpann):
+def hittaPassagerare():
     frånÅlder = int(input("Från vilken ålder vill du hitta passagerare?" "\-> "))
     tillÅlder = int(input("Till vilken ålder vill du hitta passagerare?" "\-> "))
-    print(listan(range(frånÅlder, tillÅlder)))
+    print(buss(range(frånÅlder, tillÅlder)))
 
 # petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
@@ -136,12 +148,15 @@ def main():
 
         if menyVal == "1":
             plockaUpp()
+            time.sleep(0.5)
         elif menyVal == "2":
             gåAv()
         elif menyVal == "3":
             skrivUt()
+            time.sleep(1)
         elif menyVal == "4":
             sammanlagdÅlder()
+            time.sleep(1)
         elif menyVal == "5":
             medelÅlder()
         elif menyVal == "6":
