@@ -10,7 +10,9 @@ lagrar passagerare i en lista.
 import random as rand
 
 #------------------------------------random------------------------------------ #
-listan = []
+namnLista = [Jack, Erik, Bob, Anna, Leo, Nikodemus, Samuel, David, Lucas, Marcus, Noah, Simon, Harley, Abigale, Magdalena, Marie, Lewis, John, Gus, Robin, Jakob]
+personLista = []
+
 
 # ---------------------------- Klassdefinitioner ------------------------------ #
 class Person():
@@ -42,11 +44,14 @@ class Person():
 # ------------------------- Funktionsdefinitioner ---------------------------- #
 
 # Lägger till en ny person i bussen.
-def plockaUpp(passagerare):
+def plockaUpp(Person):
+    personLista.append(person)
+    self.namn(rand.choice(namnLista))
+    self.ålder(rand.randint(1, 120))
+
     antalUpp = input("Hur många passagerare vill du plocka upp?" "\n-> ")
     passagerare.append(antalUpp)
     print(f"Plockade upp {antalUpp} passagerare.")
-    return
 
 # Avlägsnar en person från bussen.
 def gåAv(passagerare):
@@ -60,30 +65,25 @@ def gåAv(passagerare):
         vilkaAv = input("Vilka vill du ska gå av?" "\n1.-> ")
         passagerare.pop(HurMångaAv)
         print(f"{vilkaAv} gick av")
-    return
 
 # Listar alla passagerare på bussen.
 def skrivUt():
     print(listan)
-    return
 
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagdÅlder():
     totalÅlder = sum(listan)
     print(f"Den sammanlagda åldern av passagerarna är {toatlÅlder}")
-    return
 
 # Skriver ut medelåldern på passagerarna i bussen.
 def medelÅlder():
     medelVärde = sum(listan) / len(listan)
     print(f"Medelåldern av passagerarna är {medelVärde}")
-    return
 
 # Skriver ut personen som är äldst på bussen.
 def äldst():
     äldstaPassageraren = max(listan)
     print(f"Den äldsta passageraren är {äldstaPassageraren}")
-    return
 
 # Sorterar bussen, antingen efter namn i bokstavsordning eller efter ålder.
 def busSort():
@@ -99,14 +99,12 @@ def busSort():
         else:
             listan = listan[::-1]
             print(listan)
-    return
 
 # Skriver ut en lista på alla passagerare inom ett visst åldersspann.
 def hittaPassagerare(åldersSpann):
     frånÅlder = int(input("Från vilken ålder vill du hitta passagerare?" "\-> "))
     tillÅlder = int(input("Till vilken ålder vill du hitta passagerare?" "\-> "))
     print(listan(range(frånÅlder, tillÅlder)))
-    return
 
 # petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
@@ -115,7 +113,6 @@ def peta(passagerare):
     petaPåVem = input("Vilken av passagerarna vill du peta på?" "\n-> ")
     print(f"Du petade på {petaPåVem}...")
     print(f"{petaPåVem}: Ouch!")
-    return
 
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
@@ -155,6 +152,7 @@ def main():
             hittaPassagerare()
         elif menyVal == "9":
             peta()
+
 
 print(
 """
