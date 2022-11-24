@@ -86,9 +86,12 @@ def sammanlagd_ålder():
     print(f"Den sammanlagda åldern av passagerarna är {ålder}")
 
 # Skriver ut medelåldern på passagerarna i bussen.
-def medelÅlder():
-    medelVärde = sum(listan) / len(listan)
-    print(f"Medelåldern av passagerarna är {medelVärde}")
+def medel_ålder():
+    ålder_medel = 0
+    for person in buss:
+        ålder_medel += person.ålder
+    medelålder = ålder_medel / len(buss)
+    print(f"Medelåldern av passagerarna är {medelålder} år")
 
 # Skriver ut personen som är äldst på bussen.
 def äldst():
