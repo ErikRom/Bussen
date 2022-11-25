@@ -52,9 +52,9 @@ def plocka_upp():
     else:
         antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
         for räknare in range(antal_upp):
-            namn = rand.choice(namn_lista)
-            namn_lista.remove(namn)
-            ålder = rand.randint(1, 120)
+            namn = rand.choice(namn_lista) #slumpat namn
+            namn_lista.remove(namn) #tar bort namn från slumpen så alla blir unika
+            ålder = rand.randint(1, 120) #slumpad ålder
             person = Person(namn, ålder)
             buss.append(person)
 
