@@ -64,20 +64,22 @@ def plocka_upp():
 def gå_av():
     hur_många_av = int(input("Hur många passagerare vill du ska gå av?" "\n-> "))
     if hur_många_av == 1:
-        vem_av = input("Vem vill du ska gå av?" "\n-> ")
-        buss.pop(vem_av) #hur ska man få inte indexnummret att gå av? kan man söka upp vilket indexnummer det är, eller kan man döpa om indexnummret till passagerarnamnet? kommer fuckas upp sen när man sorterar.
+        vem_av = int(input("Vem vill du ska gå av(nummer)?" "\n-> "))
+        buss.pop(vem_av)
         print(f"{vem_av} gick av.")
-    else:
-        hur_många_av = int(input("Hur många vill du ska gå av=" "\n-> "))
-        vilka_av = input("Vilka vill du ska gå av?" "\n1.-> ")
-        buss.pop(hur_många_av)
-        print(f"{vilka_av} gick av")
+    """elif hur_många_av > 1:
+        person_1 = int(input("Vilka vill du ska gå av?" "\n1.-> "))
+        
+        buss.pop(vilka_av)
+        print(f"{vilka_av} gick av")"""
 
 # Listar alla passagerare på bussen.
 def skriv_ut():
+    i = 0
     for person in buss:
-        print(person.namn, person.ålder)
-
+        print(i, person.namn, person.ålder)
+        "i = person.namn" #kan fungera för att ge indexnummrena ett namn
+        i += 1
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagd_ålder():
     ålder = 0
@@ -119,13 +121,18 @@ def bus_sort():
 def hitta_passagerare():
     från_ålder = int(input("Från vilken ålder vill du hitta passagerare?" "\-> "))
     till_ålder = int(input("Till vilken ålder vill du hitta passagerare?" "\-> "))
-    print(buss(range(från_ålder, till_ålder)))
+    for person in buss:
+        ålder_lista.append(person.ålder)
+
+    for människa in ålder_lista:
+        if människa >= från_ålder and människa <= till_ålder:
+            print(människa)
 
 # petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
 # variera från person till person, t.ex. beroende på ålder.
-def peta(passagerare):
-    peta_på_vem = input("Vilken av passagerarna vill du peta på?" "\n-> ")
+def peta():
+    peta_på_vem = input("Vilken av passagerarna vill du peta på?(nummer)" "\n-> ")
     print(f"Du petade på {peta_på_vem}...")
     print(f"{peta_på_vem}: Ouch!")
 
