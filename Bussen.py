@@ -12,22 +12,23 @@ import time
 # ---------------------------------- listor ----------------------------------- #
 namn_lista = ["Jack", "Erik", "Bob", "Anna", "Leo", "Nikodemus", "Samuel", "David", "Lucas", "Marcus", "Noah", "Simon",
              "Harley", "Abigale", "Magdalena", "Marie", "Lewis", "John", "Gus", "Robin", "Jakob", "Chris", "Jimmy",
-             "Clay", "Gus", "Melvin", "Isak", "Kunigunda", "Candice", "Candide"]
+             "Clay", "Gus", "Melvin", "Isak", "Kunigunda", "Candice", "Candide", "Joe"]
 buss = []
 ålder_lista = []
+kön_lista = ["kille", "tjej", "attackhelikopter"]
 
-    #Person är en klass för att representera personer i bussen. Varje objekt
-    #som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
-    #alternativt modifiera respektive attribut
+#Person är en klass för att representera personer i bussen. Varje objekt
+#som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
+#alternativt modifiera respektive attribut
 # ---------------------------- Klassdefinitioner ------------------------------ #
 class Person():
-    def __init__(self, namn, ålder):
+    def __init__(self, namn, ålder, kön):
         self.namn = namn
         self.ålder = ålder
-
+        self.kön = kön
     # Strängrepresentation av objektet.
     def __str__(self):
-        return f"Det här är {self.namn}. Hen är {self.ålder} år gammal."
+        return f"Det här är {self.namn}, hen är {self.ålder} år gammal och är en {self.kön}."
 
     # Setters
     def set_namn(self, nytt_namn):
@@ -36,12 +37,18 @@ class Person():
     def set_ålder(self, ny_ålder):
         self.ålder = ny_ålder
 
+    def set_kön(self, nytt_kön):
+        self.kön = nytt_kön
+
     # Getters
     def get_namn(self):
         return self.namn
 
     def get_ålder(self):
         return self.ålder
+
+    def get_kön(self):
+        return self.kön
 
 # ------------------------- Funktionsdefinitioner ---------------------------- #
 
@@ -53,9 +60,10 @@ def plocka_upp():
         antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
         for räknare in range(antal_upp):
             namn = rand.choice(namn_lista) #slumpat namn
+            kön = rand.choice(kön_lista)
             namn_lista.remove(namn) #tar bort namn från slumpen så alla blir unika
             ålder = rand.randint(1, 120) #slumpad ålder
-            person = Person(namn, ålder)
+            person = Person(namn, ålder, kön)
             buss.append(person)
 
         print(f"Plockade upp {antal_upp} personer.")
@@ -67,17 +75,17 @@ def gå_av():
         vem_av = int(input("Vem vill du ska gå av(nummer)?" "\n-> "))
         buss.pop(vem_av)
         print(f"{vem_av} gick av.")
-    """elif hur_många_av > 1:
-        person_1 = int(input("Vilka vill du ska gå av?" "\n1.-> "))
-        
+    if hur_många_av > 1:
+        for passagerare in buss:
+            vilka_av = int(input("Vilka vill du ska gå av?" "\n1.-> "))
         buss.pop(vilka_av)
-        print(f"{vilka_av} gick av")"""
+        print(f"{vilka_av} gick av")
 
 # Listar alla passagerare på bussen.
 def skriv_ut():
     i = 0
     for person in buss:
-        print(i, person.namn, person.ålder)
+        print(i, person.namn, person.ålder, person.kön)
         "i = person.namn" #kan fungera för att ge indexnummrena ett namn
         i += 1
 # Skriver ut den sammanlagda åldern på passagerarna.
@@ -118,15 +126,10 @@ def bus_sort():
             print(passagerare)
 
 # Skriver ut en lista på alla passagerare inom ett visst åldersspann.
-def hitta_passagerare():
-    från_ålder = int(input("Från vilken ålder vill du hitta passagerare?" "\-> "))
-    till_ålder = int(input("Till vilken ålder vill du hitta passagerare?" "\-> "))
-    for person in buss:
-        ålder_lista.append(person.ålder)
-
-    for människa in ålder_lista:
-        if människa >= från_ålder and människa <= till_ålder:
-            print(människa)
+def hitta_passagerare(min_ålder, max_ålder):
+  for person in buss:
+    if person.ålder >= min_ålder and person.ålder <= max_ålder:
+      print(person)
 
 # petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
@@ -136,11 +139,30 @@ def peta():
     print(f"Du petade på {peta_på_vem}...")
     print(f"{peta_på_vem}: Ouch!")
 
+def hitta_passagerare_kön(vilket_kön):
+  for person in buss:
+    if person.kön == vilket_kön:
+      print(person)
+
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
     meny_val = ""
 
+try:
+
+
+except:
+    print("Ogiltig inmatning, vänligen försök igen.")
+
     while meny_val != "q":
+
+        print(
+            """
+                                           _____________
+                                         _/_|[][][][][] | - -
+                                        (      Bussen   | - -
+                                        =--OO-------OO--=
+            """)
 
         print(
         """
@@ -155,6 +177,8 @@ def main():
         """)
 
         meny_val = input("-> ")
+
+
 
         if meny_val == "1":
             plocka_upp()
@@ -174,17 +198,14 @@ def main():
         elif meny_val == "7":
             bus_sort()
         elif meny_val == "8":
-            hitta_passagerare()
+            min_ålder = int(input("Från ålder" "\n->"))
+            max_ålder = int(input("Till ålder" "\n->"))
+            hitta_passagerare(min_ålder, max_ålder)
         elif meny_val == "9":
             peta()
-
-
-print(
-"""
-                                           _____________
-                                         _/_|[][][][][] | - -
-                                        (      Bussen   | - -
-                                        =--OO-------OO--=
-""")
-
+        elif meny_val == "10":
+            vilket_kön = input("Vilket kön letar du efter?")
+            hitta_passagerare_kön()
+        else:
+            print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
 main()
