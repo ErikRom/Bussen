@@ -7,19 +7,24 @@ Det här är ett program för hantering av passagerare på en buss. Programmet
 lagrar passagerare i en lista.
 """
 # ------------------------- Biblioteksimportering ----------------------------- #
-import random as rand
+import random as rand #  importerar en funktion för att kunna skapa funktioner som slumpar fram b.la åldrar och namn.
 import time
 # ---------------------------------- listor ----------------------------------- #
-namn_lista = ["Jack", "Erik", "Bob", "Anna", "Leo", "Nikodemus", "Samuel", "David", "Lucas", "Marcus", "Noah", "Simon",
-             "Harley", "Abigale", "Magdalena", "Marie", "Lewis", "John", "Gus", "Robin", "Jakob", "Chris", "Jimmy",
-             "Clay", "Gus", "Melvin", "Isak", "Kunigunda", "Candice", "Candide", "Joe"]
+namn_lista_kille = ["Jack", "Erik", "Bob", "Leo", "Nikodemus", "Samuel", "David", "Lucas", "Marcus", "Noah",
+                    "Simon", "Harley", "Lewis", "John", "Gus", "Robin", "Jakob", "Chris", "Jimmy",
+                    "Clay", "Gus", "Melvin", "Isak", "Candide", "Joe", "Kung", "Kingkong", "Hunk", "Hnulk"]
+
+namn_lista_tjej = ["Anna", "Abigale", "Magdalena", "Marie", "Kunigunda", "Candice", "Birgitt",
+                   "Britt-marie", "Anna-lena", "Elise", "Jeanette", "Åsa", "Lara", "Linnea", "Annet", "Hanna",
+                   "Elsa", "Helena", "Jana", "Athena"]
 buss = []
 ålder_lista = []
-kön_lista = ["kille", "tjej", "attackhelikopter"]
+kön_lista_kille = ["kille", "kille", "kille", "attackhelikopter"]  # fler exemplar av könet för att förändra oddsen att
+kön_lista_tjej = ["tjej", "tjej", "tjej", "attackhelikopter"]      # få tjej/kille instället för attackhelikopter
 
-#Person är en klass för att representera personer i bussen. Varje objekt
-#som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
-#alternativt modifiera respektive attribut
+# Person är en klass för att representera personer i bussen. Varje objekt
+# som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
+# alternativt modifiera respektive attribut
 # ---------------------------- Klassdefinitioner ------------------------------ #
 class Person():
     def __init__(self, namn, ålder, kön):
@@ -86,7 +91,7 @@ def skriv_ut():
     i = 0
     for person in buss:
         print(i, person.namn, person.ålder, person.kön)
-        "i = person.namn" #kan fungera för att ge indexnummrena ett namn
+        "i = person.namn"  # kan fungera för att ge indexnummrena ett namn
         i += 1
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagd_ålder():
@@ -115,7 +120,7 @@ def bus_sort():
     sortera_hur = input("Vill du sortera passagerarna efter namn- eller åldersordning?(n/å)" "\n-> ")
     if sortera_hur == "n":
         fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
-        #nånting
+        # nånting
     else:
         fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
         if fram_eller_bak == "f":
@@ -131,7 +136,7 @@ def hitta_passagerare(min_ålder, max_ålder):
     if person.ålder >= min_ålder and person.ålder <= max_ålder:
       print(person)
 
-# petar på en passagerare. Skriver ut en text som beskriver passagerarens
+# Petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
 # variera från person till person, t.ex. beroende på ålder.
 def peta():
@@ -148,11 +153,6 @@ def hitta_passagerare_kön(vilket_kön):
 def main():
     meny_val = ""
 
-try:
-
-
-except:
-    print("Ogiltig inmatning, vänligen försök igen.")
 
     while meny_val != "q":
 
@@ -172,7 +172,8 @@ except:
             3. Skriv ut alla passagerare                        4. Beräkna sammanlagd ålder
             5. Beräkna medelåldern                              6. Hitta äldst person
             7. Sortera bussen                                   8. Hitta personer inom ett specifikt åldersspann
-            9. Peta på passagerare                              q. Avsluta
+            9. Peta på passagerare                              10. Hitta personer inom ett specifikt kön
+            q. Avsluta
         ---------------------------------------------------------------------------------------
         """)
 
@@ -204,7 +205,7 @@ except:
         elif meny_val == "9":
             peta()
         elif meny_val == "10":
-            vilket_kön = input("Vilket kön letar du efter?")
+            vilket_kön = input("Vilket kön letar du efter?" "\n-> ")
             hitta_passagerare_kön()
         else:
             print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
