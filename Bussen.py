@@ -19,8 +19,8 @@ namn_lista_tjej = ["Anna", "Abigale", "Magdalena", "Marie", "Kunigunda", "Candic
                    "Elsa", "Helena", "Jana", "Athena"]
 buss = []
 ålder_lista = []
-kön_lista_kille = ["kille", "kille", "kille", "attackhelikopter"]  # fler exemplar av könet för att förändra oddsen att
-kön_lista_tjej = ["tjej", "tjej", "tjej", "attackhelikopter"]      # få tjej/kille instället för attackhelikopter
+kön_lista_kille = ["kille", "kille", "kille", "kille", "kille", "kille", "attackhelikopter"]  # fler exemplar av könet för att förändra oddsen att
+kön_lista_tjej = ["tjej", "tjej", "tjej", "tjej", "tjej", "tjej", "attackhelikopter"]      # få tjej/kille instället för attackhelikopter
 
 # Person är en klass för att representera personer i bussen. Varje objekt
 # som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
@@ -33,7 +33,11 @@ class Person():
         self.kön = kön
     # Strängrepresentation av objektet.
     def __str__(self):
-        return f"Det här är {self.namn}, hen är {self.ålder} år gammal och är en {self.kön}."
+        if self.kön == "kille":
+            pronomen = "han"
+        if self.kön == "tjej":
+            pronomen = "hon"
+        return f"Det här är {self.namn}, {pronomen} är {self.ålder} år gammal och är en {self.kön}."
 
     # Setters
     def set_namn(self, nytt_namn):
@@ -64,9 +68,16 @@ def plocka_upp():
     else:
         antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
         for räknare in range(antal_upp):
-            namn = rand.choice(namn_lista) #slumpat namn
-            kön = rand.choice(kön_lista)
-            namn_lista.remove(namn) #tar bort namn från slumpen så alla blir unika
+            nummer = rand.randint(1,2)
+            if nummer == 1:
+                namn = rand.choice(namn_lista_tjej) #slumpat namn
+                namn_lista_tjej.remove(namn)  # tar bort namn från slumpen så alla blir unika
+                kön = rand.choice(kön_lista_tjej)
+            elif nummer == 2:
+                namn = rand.choice(namn_lista_kille)  # slumpat namn1
+                namn_lista_kille.remove(namn)  # tar bort namn från slumpen så alla blir unika
+                kön = rand.choice(kön_lista_kille)
+
             ålder = rand.randint(1, 120) #slumpad ålder
             person = Person(namn, ålder, kön)
             buss.append(person)
@@ -142,8 +153,24 @@ def hitta_passagerare(min_ålder, max_ålder):
 def peta():
     peta_på_vem = input("Vilken av passagerarna vill du peta på?(nummer)" "\n-> ")
     print(f"Du petade på {peta_på_vem}...")
-    print(f"{peta_på_vem}: Ouch!")
-
+    if person.ålder >= 100 and person.ålder <= 120:
+        print(f"...verkar som att {peta_på_vem} är död")
+    elif person.ålder >= 70 and person.ålder < 100:
+        print(f"{peta_på_vem}: Ungdomen har då tappat all respekt för de äldre" "\n>:(")
+    elif person.ålder >= 40 and person.ålder < 70:
+        print(f"{peta_på_vem}: Kan jag hjälpa dig med något?")
+    elif person.ålder >= 30 and person.ålder < 40:
+        print(f"{peta_på_vem}: Lämna mig ifred." "\n:(")
+    elif person.ålder >= 20 and person.ålder < 30:
+        print(f"{peta_på_vem} Muckar du eller?!")
+    elif person.ålder >= 15 and person.ålder < 20:
+        print(f"{peta_på_vem}: ...")
+    elif person.ålder >= 10 and person.ålder < 15:
+        print(f"{peta_på_vem}: Ouch!")
+    elif person.ålder >= 2 and person.ålder < 10:
+        print(f"{peta_på_vem}: Mamma! Hjälp!")
+    elif person.ålder < 2:
+        print(f"{peta_på_vem}: Wäääää" "\nD;")
 def hitta_passagerare_kön(vilket_kön):
   for person in buss:
     if person.kön == vilket_kön:
@@ -206,7 +233,7 @@ def main():
             peta()
         elif meny_val == "10":
             vilket_kön = input("Vilket kön letar du efter?" "\n-> ")
-            hitta_passagerare_kön()
+            hitta_passagerare_kön(vilket_kön)
         else:
             print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
 main()
