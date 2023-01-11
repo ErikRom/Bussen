@@ -20,7 +20,7 @@ namn_lista_tjej = ["Anna", "Abigale", "Magdalena", "Marie", "Kunigunda", "Candic
 buss = []
 ålder_lista = []
 kön_lista_kille = ["kille", "kille", "kille", "kille", "kille", "kille", "attackhelikopter"]  # fler exemplar av könet för att förändra oddsen att
-kön_lista_tjej = ["tjej", "tjej", "tjej", "tjej", "tjej", "tjej", "attackhelikopter"]      # få tjej/kille instället för attackhelikopter
+kön_lista_tjej = ["tjej", "tjej", "tjej", "tjej", "tjej", "tjej", "attackhelikopter"]  # få tjej/kille instället för attackhelikopter
 
 # Person är en klass för att representera personer i bussen. Varje objekt
 # som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
@@ -89,19 +89,15 @@ def plocka_upp():
 
 # Avlägsnar en person från bussen.
 def gå_av():
-    try:
-        hur_många_av = int(input("Hur många passagerare vill du ska gå av?" "\n-> "))
-        if hur_många_av == 1:
-            vem_av = int(input("Vem vill du ska gå av(nummer)?" "\n-> "))
-            buss.pop(vem_av)
-            print(f"{vem_av} gick av.")
-        if hur_många_av > 1:
-            for passagerare in buss:
+    hur_många_av = int(input("Hur många passagerare vill du ska gå av?" "\n-> "))
+    if hur_många_av == 1:
+         vem_av = int(input("Vem vill du ska gå av(nummer)?" "\n-> "))
+         buss.pop(vem_av)
+         print(f"{vem_av} gick av.")
+    if hur_många_av > 1:
+        for passagerare in buss:
                 vilka_av = int(input("Vilka vill du ska gå av?" "\n1.-> "))
-            buss.pop(vilka_av)
-    except Exception:
-        print("Ogiltig inmatning, vänligen försök igen")
-    else:
+        buss.pop(vilka_av)
         print(f"{vilka_av} gick av")
 
 # Listar alla passagerare på bussen.
@@ -109,7 +105,6 @@ def skriv_ut():
     i = 0
     for person in buss:
         print(i, person.namn, person.ålder, person.kön)
-        "i = person.namn"  # kan fungera för att ge indexnummrena ett namn
         i += 1
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagd_ålder():
@@ -121,33 +116,40 @@ def sammanlagd_ålder():
 # Skriver ut medelåldern på passagerarna i bussen.
 def medel_ålder():
     ålder_medel = 0
-    for person in buss:
-        ålder_medel += person.ålder
-    medelålder = ålder_medel / len(buss)
-    print(f"Medelåldern av passagerarna är {medelålder} år")
+    try:
+        for person in buss:
+            ålder_medel += person.ålder
+        medelålder = ålder_medel / len(buss)
+    except Exception:
+        print("Det finns inga passagerare på bussen.")
+    else:
+        print(f"Medelåldern av passagerarna är {medelålder} år")
 
 # Skriver ut personen som är äldst på bussen.
 def äldst():
-    for person in buss:
-        ålder_lista.append(person.ålder)
-    äldsta_passageraren = max(ålder_lista)
-    print(f"Den äldsta passageraren är {äldsta_passageraren}")
+    try:
+        for person in buss:
+            ålder_lista.append(person.ålder)
+        äldsta_passageraren = max(ålder_lista)
+    except Exception:
+        print("Det finns inga passagerare på bussen.")
+    else:
+        print(f"Den äldsta passageraren är {äldsta_passageraren}")
 
 # Sorterar bussen, antingen efter namn i bokstavsordning eller efter ålder.
 def bus_sort():
-    try:
-        sortera_hur = input("Vill du sortera passagerarna efter namn- eller åldersordning?(n/å)" "\n-> ")
-        if sortera_hur == "n":
-            fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
-            # nånting
+    sortera_hur = input("Vill du sortera passagerarna efter namn- eller åldersordning?(n/å)" "\n-> ")
+    if sortera_hur == "n":
+        fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
+        #nånting
+    else:
+        fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
+        if fram_eller_bak == "f":
+            passagerare = buss.sort
+            print(passagerare)
         else:
-            fram_eller_bak = input("Fram- eller baklänges?(f/b)" "\n-> ")
-            if fram_eller_bak == "f":
-                passagerare = buss.sort
-                print(passagerare)
-            else:
-                passagerare = buss.sort[::-1]
-                print(passagerare)
+            passagerare = buss.sort[::-1]
+            print(passagerare)
 
 # Skriver ut en lista på alla passagerare inom ett visst åldersspann.
 def hitta_passagerare(min_ålder, max_ålder):
@@ -237,18 +239,17 @@ def main():
         elif meny_val == "7":
             bus_sort()
         elif meny_val == "8":
-            try:
-                min_ålder = int(input("Från ålder" "\n->"))
-                max_ålder = int(input("Till ålder" "\n->"))
-            except Exception:
-                print("Ogiltig inmatning, vänligen försök igen.")
-            else:
-                hitta_passagerare(min_ålder, max_ålder)
+            min_ålder = int(input("Från ålder" "\n->"))
+            max_ålder = int(input("Till ålder" "\n->"))
+            hitta_passagerare(min_ålder, max_ålder)
         elif meny_val == "9":
             peta()
         elif meny_val == "10":
             vilket_kön = input("Vilket kön letar du efter?" "\n-> ")
             hitta_passagerare_kön(vilket_kön)
         else:
-            print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
+            if meny_val != "q":
+                print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
+            else:
+                print("Program avslutat.")
 main()
