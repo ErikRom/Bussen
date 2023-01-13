@@ -91,14 +91,20 @@ def plocka_upp():
 def gå_av():
     hur_många_av = int(input("Hur många passagerare vill du ska gå av?" "\n-> "))
     if hur_många_av == 1:
-         vem_av = int(input("Vem vill du ska gå av(nummer)?" "\n-> "))
-         buss.pop(vem_av)
-         print(f"{vem_av} gick av.")
+         vem_av = input("\n" "Vem vill du ska gå av?" "\n-> ")
+         for person in buss:
+             if vem_av == person.namn:
+                buss.remove(person)
+                print(f"{vem_av} gick av.")
     if hur_många_av > 1:
-        for passagerare in buss:
-                vilka_av = int(input("Vilka vill du ska gå av?" "\n1.-> "))
-        buss.pop(vilka_av)
-        print(f"{vilka_av} gick av")
+        for antal in range(hur_många_av):
+            counter = 1
+            big_list = []
+            lägga_till = input(f"Vilka vill du ska gå av?" "\n{counter}.-> ")
+            big_list.append(lägga_till)
+        for person in buss:
+            if person.namn in big_list:
+                buss.remove(person)
 
 # Listar alla passagerare på bussen.
 def skriv_ut():
@@ -263,6 +269,6 @@ def main():
         else:
             if meny_val != "q":
                 print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
-            else:
-                print("Program avslutat.")
+
 main()
+print("Bussen kraschade")
