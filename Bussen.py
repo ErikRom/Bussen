@@ -68,7 +68,7 @@ def plocka_upp():
     else:
         try:
             antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
-            for räknare in range(antal_upp):
+            for räknare in range(antal_upp): #slumpar om det blir en kille/tjej och väljer därefter
                 nummer = rand.randint(1,2)
                 if nummer == 1:
                     namn = rand.choice(namn_lista_tjej) #slumpat namn
@@ -160,27 +160,40 @@ def hitta_passagerare(min_ålder, max_ålder):
 # Petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
 # variera från person till person, t.ex. beroende på ålder.
+
 def peta():
-    peta_på_vem = input("Vilken av passagerarna vill du peta på?(nummer)" "\n-> ")
-    print(f"Du petade på {peta_på_vem}...")
-    if person.ålder >= 100 and person.ålder <= 120:
-        print(f"...verkar som att {peta_på_vem} är död")
-    elif person.ålder >= 70 and person.ålder < 100:
-        print(f"{peta_på_vem}: Ungdomen har då tappat all respekt för de äldre" "\n>:(")
-    elif person.ålder >= 40 and person.ålder < 70:
-        print(f"{peta_på_vem}: Kan jag hjälpa dig med något?")
-    elif person.ålder >= 30 and person.ålder < 40:
-        print(f"{peta_på_vem}: Lämna mig ifred." "\n:(")
-    elif person.ålder >= 20 and person.ålder < 30:
-        print(f"{peta_på_vem} Muckar du eller?!")
-    elif person.ålder >= 15 and person.ålder < 20:
-        print(f"{peta_på_vem}: ...")
-    elif person.ålder >= 10 and person.ålder < 15:
-        print(f"{peta_på_vem}: Ouch!")
-    elif person.ålder >= 2 and person.ålder < 10:
-        print(f"{peta_på_vem}: Mamma! Hjälp!")
-    elif person.ålder < 2:
-        print(f"{peta_på_vem}: Wäääää" "\nD;")
+    peta_på_vem = input("Vilken av passagerarna vill du peta på?" "\n-> ")
+    for person in buss:
+        if person.namn == peta_på_vem:
+            print(f"Du petade på {peta_på_vem}...")
+            if person.ålder >= 100 and person.ålder <= 120:
+                print(f"...verkar som att {peta_på_vem} är död")
+                break
+            elif person.ålder >= 70 and person.ålder < 100:
+                print(f"{peta_på_vem}: Ungdomen har då tappat all respekt för de äldre" "\n>:(")
+                break
+            elif person.ålder >= 40 and person.ålder < 70:
+                print(f"{peta_på_vem}: Kan jag hjälpa dig med något?")
+                break
+            elif person.ålder >= 30 and person.ålder < 40:
+                print(f"{peta_på_vem}: Lämna mig ifred." "\n:(")
+                break
+            elif person.ålder >= 20 and person.ålder < 30:
+                print(f"{peta_på_vem} Muckar du eller?!")
+                break
+            elif person.ålder >= 15 and person.ålder < 20:
+                print(f"{peta_på_vem}: ...")
+                break
+            elif person.ålder >= 10 and person.ålder < 15:
+                print(f"{peta_på_vem}: Ouch!")
+                break
+            elif person.ålder >= 2 and person.ålder < 10:
+                print(f"{peta_på_vem}: Mamma! Hjälp!")
+                break
+            elif person.ålder < 2:
+                print(f"{peta_på_vem}: Gaga" "\nD;")
+                break
+
 def hitta_passagerare_kön(vilket_kön):
   for person in buss:
     if person.kön == vilket_kön:
