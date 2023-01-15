@@ -7,8 +7,9 @@ Det här är ett program för hantering av passagerare på en buss. Programmet
 lagrar passagerare i en lista.
 """
 # ------------------------- Biblioteksimportering ----------------------------- #
-import random as rand #importerar en funktion för att kunna skapa funktioner som slumpar fram b.la åldrar och namn.
-import time #importerar en funktion för att kunna fördröja hur snabbt saker och ting händer i terminalen
+import random as rand  # importerar en funktion för att kunna skapa funktioner som slumpar fram b.la åldrar och namn.
+import time  # importerar en funktion för att kunna fördröja hur snabbt saker och ting händer i terminalen
+
 # ---------------------------------- listor ----------------------------------- #
 namn_lista_kille = ["Jack", "Erik", "Bob", "Leo", "Nikodemus", "Samuel", "David", "Lucas", "Marcus", "Noah",
                     "Simon", "Harley", "Lewis", "John", "Gus", "Robin", "Jakob", "Chris", "Jimmy",
@@ -19,6 +20,8 @@ namn_lista_tjej = ["Anna", "Abigale", "Magdalena", "Marie", "Kunigunda", "Candic
                    "Elsa", "Helena", "Jana", "Athena"]
 buss = []
 ålder_lista = []
+
+
 # Person är en klass för att representera personer i bussen. Varje objekt
 # som skapas ur klassen har ett namn och en ålder, samt metoder för att returnera
 # alternativt modifiera respektive attribut
@@ -28,6 +31,7 @@ class Person():
         self.namn = namn
         self.ålder = ålder
         self.kön = kön
+
     # Strängrepresentation av objektet.
     def __str__(self):
         if self.kön == "kille":
@@ -56,6 +60,7 @@ class Person():
     def get_kön(self):
         return self.kön
 
+
 # ------------------------- Funktionsdefinitioner ---------------------------- #
 
 # Lägger till en ny person i bussen.
@@ -65,23 +70,24 @@ def plocka_upp():
     else:
         try:
             antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
-            for räknare in range(antal_upp): #slumpar om det blir en kille/tjej och väljer därefter
-                nummer = rand.randint(1,2) #för att ge 50/50 chans för kille/tjej
+            for räknare in range(antal_upp):  # slumpar om det blir en kille/tjej och väljer därefter
+                nummer = rand.randint(1, 2)  # för att ge 50/50 chans för kille/tjej
                 if nummer == 1:
-                    namn = rand.choice(namn_lista_tjej) #slumpat namn
-                    namn_lista_tjej.remove(namn)  #tar bort namn från slumpen så alla blir unika
+                    namn = rand.choice(namn_lista_tjej)  # slumpat namn
+                    namn_lista_tjej.remove(namn)  # tar bort namn från slumpen så alla blir unika
                     kön = "tjej"
                 elif nummer == 2:
-                    namn = rand.choice(namn_lista_kille)  #slumpat namn1
-                    namn_lista_kille.remove(namn)  #tar bort namn från slumpen så alla blir unika
+                    namn = rand.choice(namn_lista_kille)  # slumpat namn1
+                    namn_lista_kille.remove(namn)  # tar bort namn från slumpen så alla blir unika
                     kön = "kille"
-                ålder = rand.randint(1, 120) #slumpad ålder
+                ålder = rand.randint(1, 120)  # slumpad ålder
                 person = Person(namn, ålder, kön)
                 buss.append(person)
-        except Exception: #vid en ogiltig inmatning körs programmet om istället för att ge ett felmeddelande
+        except Exception:  # vid en ogiltig inmatning körs programmet om istället för att ge ett felmeddelande
             print("Ogiltig inmatning, vänligen försök igen.")
         else:
             print(f"Plockade upp {antal_upp} personer.")
+
 
 # Avlägsnar en person från bussen.
 def gå_av():
@@ -107,6 +113,7 @@ def gå_av():
         except Exception:
             print("Ogiltig inmatning, vänligen försök igen.")
 
+
 # Listar alla passagerare på bussen.
 def skriv_ut():
     if len(buss) == 0:
@@ -115,12 +122,14 @@ def skriv_ut():
         for person in buss:
             print(person.namn, person.ålder, person.kön)
 
+
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagd_ålder():
     sammanlagd_ålder = 0
     for person in buss:
         sammanlagd_ålder += person.ålder
     print(f"Den sammanlagda åldern av passagerarna är {sammanlagd_ålder}")
+
 
 # Skriver ut medelåldern på passagerarna i bussen.
 def medel_ålder():
@@ -133,6 +142,7 @@ def medel_ålder():
         medelålder = ålder_medel / len(buss)
         print(f"Medelåldern av passagerarna är {medelålder} år")
 
+
 # Skriver ut personen som är äldst på bussen.
 def äldst():
     if len(buss) == 0:
@@ -143,12 +153,15 @@ def äldst():
         äldsta_passageraren = max(ålder_lista)
         print(f"Den äldsta passageraren är {äldsta_passageraren}")
 
+
 # Sorterar bussen, antingen efter namn i bokstavsordning eller efter ålder.
 def by_name(person):
     return person.get_namn()
 
+
 def by_age(person):
     return person.get_ålder()
+
 
 def buss_sort():
     if len(buss) == 0:
@@ -173,8 +186,9 @@ def buss_sort():
 def hitta_passagerare(min_ålder, max_ålder):
     print(f"Passagerare inom åldersspannet {min_ålder} - {max_ålder} år:" "\n")
     for person in buss:
-        if person.ålder >= min_ålder and person.ålder <= max_ålder:
+        if min_ålder <= person.ålder <= max_ålder:
             print(person)
+
 
 # Petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
@@ -189,28 +203,28 @@ def peta():
             for person in buss:
                 if person.namn == peta_på_vem:
                     print(f"Du petade på {peta_på_vem}...")
-                    if person.ålder >= 100 and person.ålder <= 120:
+                    if 100 <= person.ålder <= 120:
                         print(f"...verkar som att {peta_på_vem} är död")
                         break
-                    elif person.ålder >= 70 and person.ålder < 100:
+                    elif 70 <= person.ålder < 100:
                         print(f"{peta_på_vem}: Ungdomen har då tappat all respekt för de äldre" "\n>:(")
                         break
-                    elif person.ålder >= 40 and person.ålder < 70:
+                    elif 40 <= person.ålder < 70:
                         print(f"{peta_på_vem}: Kan jag hjälpa dig med något?")
                         break
-                    elif person.ålder >= 30 and person.ålder < 40:
+                    elif 30 <= person.ålder < 40:
                         print(f"{peta_på_vem}: Lämna mig ifred." "\n:(")
                         break
-                    elif person.ålder >= 20 and person.ålder < 30:
+                    elif 20 <= person.ålder < 30:
                         print(f"{peta_på_vem} Muckar du eller?!")
                         break
-                    elif person.ålder >= 15 and person.ålder < 20:
+                    elif 15 <= person.ålder < 20:
                         print(f"{peta_på_vem}: ...")
                         break
-                    elif person.ålder >= 10 and person.ålder < 15:
+                    elif 10 <= person.ålder < 15:
                         print(f"{peta_på_vem}: Ouch!")
                         break
-                    elif person.ålder >= 2 and person.ålder < 10:
+                    elif 2 <= person.ålder < 10:
                         print(f"{peta_på_vem}: Mamma! Hjälp!")
                         break
                     elif person.ålder < 2:
@@ -219,15 +233,16 @@ def peta():
         except Exception:
             print("Otillåten inmatning, vänligen försök igen.")
 
+
 def hitta_passagerare_kön(vilket_kön):
     for person in buss:
         if person.kön == vilket_kön:
             print(person)
 
+
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
     meny_val = ""
-
 
     while meny_val != "q":
 
@@ -240,7 +255,7 @@ def main():
             """)
 
         print(
-        """
+            """
                                          --- MENY ---
                     Välkommen till buss-simulatorn. Välj ett av alternativen nedan:
             1. Plocka upp ny passagerare                        2. Låt passagerare gå av
@@ -253,8 +268,6 @@ def main():
         """)
 
         meny_val = input("-> ")
-
-
 
         if meny_val == "1":
             plocka_upp()
@@ -302,6 +315,7 @@ def main():
         else:
             if meny_val != "q":
                 print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
+
 
 main()
 print("Bussen kraschade")
