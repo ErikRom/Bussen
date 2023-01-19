@@ -70,6 +70,9 @@ def plocka_upp():
     else:
         try:
             antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
+            if antal_upp > 25:
+                print("För många passagerare, max antal är 25.")
+                return
             for räknare in range(antal_upp):  # slumpar om det blir en kille/tjej och väljer därefter
                 nummer = rand.randint(1, 2)  # för att ge 50/50 chans för kille/tjej
                 if nummer == 1:
@@ -83,7 +86,7 @@ def plocka_upp():
                 ålder = rand.randint(1, 120)  # slumpad ålder
                 person = Person(namn, ålder, kön)
                 buss.append(person)
-        except Exception:  # vid en ogiltig inmatning körs programmet om istället för att ge ett felmeddelande
+        except (ValueError, IndexError):  # vid en ogiltig inmatning körs programmet om istället för att ge ett felmeddelande
             print("Ogiltig inmatning, vänligen försök igen.")
         else:
             print(f"Plockade upp {antal_upp} personer.")
@@ -100,7 +103,7 @@ def gå_av():
                 print("Det finns inte så många personer i bussen.")
             else:
                 for passagerare in range(hur_många_av):
-                    namn = input("Ange namnet på personen som ska gå av: ")
+                    namn = input("Ange namnet på personen som ska gå av: ").capitalize()
                     borttagen = False
                     for index in range(len(buss)):
                         if buss[index].get_namn() == namn:
@@ -140,7 +143,7 @@ def medel_ålder():
         for person in buss:
             ålder_medel += person.ålder
         medelålder = ålder_medel / len(buss)
-        print(f"Medelåldern av passagerarna är {medelålder} år")
+        print(f"Medelåldern av passagerarna är {medelålder:.2f} år")
 
 
 # Skriver ut personen som är äldst på bussen.
@@ -155,11 +158,11 @@ def äldst():
 
 
 # Sorterar bussen, antingen efter namn i bokstavsordning eller efter ålder.
-def by_name(person):
+def efter_namn(person):
     return person.get_namn()
 
 
-def by_age(person):
+def efter_ålder(person):
     return person.get_ålder()
 
 
@@ -167,17 +170,19 @@ def buss_sort():
     if len(buss) == 0:
         print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
     else:
-        sort_by = input("Sortera efter namn eller ålder?" "\n-> ")
-        if sort_by == "namn":
-            buss.sort(key=by_name)
+        sortera_efter = input("Sortera efter namn eller ålder?" "\n-> ")
+        if sortera_efter == "namn":
+            buss.sort(key=efter_namn)
             print("Listan sorterad efter bokstavsordning." "\n")
             for person in buss:
                 print(person.namn, person.ålder, person.kön)
-        elif sort_by == "ålder":
-            buss.sort(key=by_age)
+        elif sortera_efter == "ålder":
+            buss.sort(key=efter_ålder)
             print("Listan sorterad efter ålder." "\n")
             for person in buss:
                 print(person.namn, person.ålder, person.kön)
+        elif sortera_efter == "avbryt":
+            main()
         else:
             print("Otillåten sorteringsmetod, vänligen försök igen")
 
@@ -199,7 +204,7 @@ def peta():
         print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
     else:
         try:
-            peta_på_vem = input("Vilken av passagerarna vill du peta på?" "\n-> ")
+            peta_på_vem = input("Vilken av passagerarna vill du peta på?" "\n-> ").capitalize()
             for person in buss:
                 if person.namn == peta_på_vem:
                     print(f"Du petade på {peta_på_vem}...")
@@ -235,9 +240,16 @@ def peta():
 
 
 def hitta_passagerare_kön(vilket_kön):
+    if vilket_kön == "man":
+        vilket_kön = "kille"
+    elif vilket_kön == "kvinna":
+        vilket_kön = "tjej"
     for person in buss:
         if person.kön == vilket_kön:
             print(person)
+
+def tipsen():
+    print("Du kan avbryta det du gör och komma tillbaka till menyn genom att skriva 'avbryt'!" "\nMax antal passagerare på bussen är 25!")
 
 
 # ------------------------------ Huvudprogram --------------------------------- #
@@ -263,7 +275,7 @@ def main():
             5. Beräkna medelåldern                              6. Hitta äldst person
             7. Sortera bussen                                   8. Hitta personer inom ett specifikt åldersspann
             9. Peta på passagerare                              10. Hitta personer inom ett specifikt kön
-            q. Avsluta
+            11. Tips                                            q. Avsluta
         ---------------------------------------------------------------------------------------
         """)
 
@@ -309,9 +321,11 @@ def main():
             if len(buss) == 0:
                 print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
             else:
-                vilket_kön = input("Vilket kön letar du efter?" "\n-> ")
+                vilket_kön = input("Vilket kön letar du efter?" "\n-> ").lower()
                 hitta_passagerare_kön(vilket_kön)
             time.sleep(0.5)
+        elif meny_val == "11":
+            tipsen()
         else:
             if meny_val != "q":
                 print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
