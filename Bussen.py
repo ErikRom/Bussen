@@ -212,28 +212,28 @@ def peta():
                         print(f"...verkar som att {peta_på_vem} är död")
                         break
                     elif 70 <= person.ålder < 100:
-                        print(f"{peta_på_vem}: Ungdomen har då tappat all respekt för de äldre" "\n>:(")
+                        print(f"{peta_på_vem}: NEJ")
                         break
                     elif 40 <= person.ålder < 70:
-                        print(f"{peta_på_vem}: Kan jag hjälpa dig med något?")
+                        print(f"{peta_på_vem}: AY")
                         break
                     elif 30 <= person.ålder < 40:
-                        print(f"{peta_på_vem}: Lämna mig ifred." "\n:(")
+                        print(f"{peta_på_vem}: GRR")
                         break
                     elif 20 <= person.ålder < 30:
-                        print(f"{peta_på_vem} Muckar du eller?!")
+                        print(f"{peta_på_vem} OUCH!")
                         break
                     elif 15 <= person.ålder < 20:
                         print(f"{peta_på_vem}: ...")
                         break
                     elif 10 <= person.ålder < 15:
-                        print(f"{peta_på_vem}: Ouch!")
+                        print(f"{peta_på_vem}: AJE!")
                         break
                     elif 2 <= person.ålder < 10:
-                        print(f"{peta_på_vem}: Mamma! Hjälp!")
+                        print(f"{peta_på_vem}: OW!")
                         break
                     elif person.ålder < 2:
-                        print(f"{peta_på_vem}: Gaga" "\nD;")
+                        print(f"{peta_på_vem}:" "AAA!")
                         break
         except Exception:
             print("Otillåten inmatning, vänligen försök igen.")
