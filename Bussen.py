@@ -70,10 +70,7 @@ def plocka_upp():
     else:
         try:
             antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
-            if antal_upp == "avbryt":
-                main()  # Skickar direkt till felmeddelandet då man skriver något icke int. Hur lös?????????? :(((((((
-                return
-            elif antal_upp > 25:
+            if antal_upp > 25:
                 print("För många passagerare, max antal är 25.")
                 return
             for räknare in range(antal_upp):  # slumpar om det blir en kille/tjej och väljer därefter
@@ -103,18 +100,12 @@ def gå_av():
     else:
         try:
             hur_många_av = int(input("Hur många personer vill du ska gå av? " "\n-> "))
-            if hur_många_av == "avbryt":
-                main()
-                return
-            elif hur_många_av > len(buss):
+            if hur_många_av > len(buss):
                 print("Det finns inte så många personer i bussen.")
             else:
                 for passagerare in range(hur_många_av):
                     namn = input("Ange namnet på personen som ska gå av: ").capitalize()
                     borttagen = False
-                    if namn == "avbryt":
-                        main()
-                        return
                     for index in range(len(buss)):
                         if buss[index].get_namn() == namn:
                             buss.pop(index)
@@ -181,10 +172,7 @@ def buss_sort():
         print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
     else:
         sortera_efter = input("Sortera efter namn eller ålder?" "\n-> ")
-        if sortera_efter == "avbryt":
-            main()
-            return
-        elif sortera_efter == "namn":
+        if sortera_efter == "namn":
             buss.sort(key=efter_namn)
             print("Listan sorterad efter bokstavsordning." "\n")
             for person in buss:
@@ -194,65 +182,58 @@ def buss_sort():
             print("Listan sorterad efter ålder." "\n")
             for person in buss:
                 print(person.namn, person.ålder, person.kön)
-        elif sortera_efter == "avbryt":
-            main()
-            return
         else:
             print("Otillåten sorteringsmetod, vänligen försök igen")
 
 
 # Skriver ut en lista på alla passagerare inom ett visst åldersspann.
-def hitta_passagerare(min_ålder, max_ålder):
-    print(f"Passagerare inom åldersspannet {min_ålder} - {max_ålder} år:" "\n")
-    for person in buss:
-        if min_ålder <= person.ålder <= max_ålder:
-            print(person)
+def hitta_passagerare():
+    if len(buss) == 0:
+        print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
+    else:
+        try:
+            min_ålder = int(input("Från ålder" "\n-> "))
+            max_ålder = int(input("Till ålder" "\n-> "))
+        except Exception:
+            print("Ogiltig inmatning, vänligen försök igen.")
+        else:
+            print(f"Passagerare inom åldersspannet {min_ålder} - {max_ålder} år:" "\n")
+            for person in buss:
+                if min_ålder <= person.ålder <= max_ålder:
+                    print(person)
 
 
 # Petar på en passagerare. Skriver ut en text som beskriver passagerarens
 # reaktion när denne blir petad på. För lite svårare uppgift kan reaktionerna
 # variera från person till person, t.ex. beroende på ålder.
-def peta():
+def peta():  # Ger olika responser från passagerarna beroende på deras ålder
     if len(buss) == 0:
         print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
     else:
-        try:
-            peta_på_vem = input("Vilken av passagerarna vill du peta på?" "\n-> ").capitalize()
-            if peta_på_vem == "avbryt":
-                main()  # Skriver ingenting, går tillbaka till menyn om man skriver in nåt annat än namn. Skickar inte felmeddelande eller menu().
-                return
-            for person in buss:
-                if person.namn == peta_på_vem:
-                    print(f"Du petade på {peta_på_vem}...")
-                    if 100 <= person.ålder <= 120:
-                        print(f"...verkar som att {peta_på_vem} är död")
-                        break
-                    elif 70 <= person.ålder < 100:
-                        print(f"{peta_på_vem}: NEJ")
-                        break
-                    elif 40 <= person.ålder < 70:
-                        print(f"{peta_på_vem}: AY")
-                        break
-                    elif 30 <= person.ålder < 40:
-                        print(f"{peta_på_vem}: GRR")
-                        break
-                    elif 20 <= person.ålder < 30:
-                        print(f"{peta_på_vem} OUCH!")
-                        break
-                    elif 15 <= person.ålder < 20:
-                        print(f"{peta_på_vem}: ...")
-                        break
-                    elif 10 <= person.ålder < 15:
-                        print(f"{peta_på_vem}: AJE!")
-                        break
-                    elif 2 <= person.ålder < 10:
-                        print(f"{peta_på_vem}: OW!")
-                        break
-                    elif person.ålder < 2:
-                        print(f"{peta_på_vem}:" "AAA!")
-                        break
-        except Exception:
-            print("Otillåten inmatning, vänligen försök igen.")
+        peta_på_vem = input("Vilken av passagerarna vill du peta på?" "\n-> ").capitalize()
+        for person in buss:
+            if person.namn == peta_på_vem:
+                print(f"Du petade på {peta_på_vem}...")
+                if 100 <= person.ålder <= 120:
+                    print(f"...verkar som att {peta_på_vem} är död")
+                elif 70 <= person.ålder < 100:
+                    print(f"{peta_på_vem}: NEJ")
+                elif 40 <= person.ålder < 70:
+                    print(f"{peta_på_vem}: AY")
+                elif 30 <= person.ålder < 40:
+                    print(f"{peta_på_vem}: GRR")
+                elif 20 <= person.ålder < 30:
+                    print(f"{peta_på_vem} OUCH!")
+                elif 15 <= person.ålder < 20:
+                    print(f"{peta_på_vem}: ...")
+                elif 10 <= person.ålder < 15:
+                    print(f"{peta_på_vem}: AJE!")
+                elif 2 <= person.ålder < 10:
+                    print(f"{peta_på_vem}: OW!")
+                elif person.ålder < 2:
+                    print(f"{peta_på_vem}:" "AAA!")
+
+    print("Otillåten inmatning, vänligen försök igen.")
 
 
 def hitta_passagerare_kön(vilket_kön):
@@ -264,17 +245,11 @@ def hitta_passagerare_kön(vilket_kön):
         if person.kön == vilket_kön:
             print(person)
 
-
-def tipsen():
-    print("Du kan avbryta det du gör och komma tillbaka till menyn genom att skriva 'avbryt' närsomhelst!"
-          "\nMax antal passagerare på bussen är 25!")
-
-
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
     meny_val = ""
 
-    while meny_val != "q":
+    while True:
 
         print(
             """
@@ -293,7 +268,7 @@ def main():
             5. Beräkna medelåldern                              6. Hitta äldst person
             7. Sortera bussen                                   8. Hitta personer inom ett specifikt åldersspann
             9. Peta på passagerare                              10. Hitta personer inom ett specifikt kön
-            11. Tips                                            q. Avsluta
+                                        q. Avsluta
         ---------------------------------------------------------------------------------------
         """)
 
@@ -321,22 +296,7 @@ def main():
             buss_sort()
             time.sleep(0.5)
         elif meny_val == "8":
-            if len(buss) == 0:
-                print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
-            else:
-                try:
-                    min_ålder = int(input("Från ålder" "\n-> "))
-                    if min_ålder == "avbryt":
-                        main()
-                        return
-                    max_ålder = int(input("Till ålder" "\n-> "))
-                    if max_ålder == "avbryt":
-                        main()
-                        return
-                except Exception:
-                    print("Ogiltig inmatning, vänligen försök igen.")
-                else:
-                    hitta_passagerare(min_ålder, max_ålder)
+            hitta_passagerare()
             time.sleep(0.5)
         elif meny_val == "9":
             peta()
@@ -346,17 +306,12 @@ def main():
                 print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
             else:
                 vilket_kön = input("Vilket kön letar du efter?" "\n-> ").lower()
-                if vilket_kön == "avbryt":
-                    main()
-                    return
                 hitta_passagerare_kön(vilket_kön)
             time.sleep(0.5)
-        elif meny_val == "11":
-            tipsen()
+        elif meny_val == "q":
+            print("Bussen kraschade")
+            break
         else:
-            if meny_val != "q":
-                print("Ogiltig inmatning, vänligen ge ett värde på 1-9 eller 'q'")
-
+            print("Ogiltig inmatning, vänligen ge ett värde på 1-10 eller 'q'")
 
 main()
-print("Bussen kraschade")
