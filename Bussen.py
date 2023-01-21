@@ -41,16 +41,6 @@ class Person():
             pronomen = "hon"
         return f"Det här är {self.namn}, {pronomen} är {self.ålder} år gammal och är en {self.kön}."
 
-    # Setters
-    def set_namn(self, nytt_namn):
-        self.namn = nytt_namn
-
-    def set_ålder(self, ny_ålder):
-        self.ålder = ny_ålder
-
-    def set_kön(self, nytt_kön):
-        self.kön = nytt_kön
-
     # Getters
     def get_namn(self):
         return self.namn
