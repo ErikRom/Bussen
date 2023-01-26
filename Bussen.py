@@ -61,7 +61,7 @@ def plocka_upp():
     else:
         try:
             antal_upp = int(input("Hur många passagerare vill du plocka upp?" "\n-> "))
-            if antal_upp > 25:
+            if antal_upp + len(buss) > 25:
                 print("För många passagerare, max antal är 25.")
                 return
             for räknare in range(antal_upp):  # slumpar om det blir en kille/tjej och väljer därefter
@@ -81,7 +81,6 @@ def plocka_upp():
                 buss.append(person)
         except (ValueError, IndexError):  # vid en ogiltig inmatning körs programmet om istället för att ge ett felmeddelande
             print("Ogiltig inmatning, vänligen försök igen.")
-            plocka_upp()
         else:
             print(f"Plockade upp {antal_upp} personer.")
 
@@ -95,7 +94,7 @@ def gå_av():
             hur_många_av = int(input("Hur många personer vill du ska gå av? " "\n-> "))
             if hur_många_av > len(buss):
                 print("Det finns inte så många personer i bussen.")
-            else:
+            elif hur_många_av > 0:
                 print(använda_namn)  # lättare att veta vilka möjliga personer som kan gå av
                 for passagerare in range(hur_många_av):
                     namn = input(f"Ange namnet på personen som ska gå av: ").capitalize()
@@ -108,6 +107,8 @@ def gå_av():
                             break
                     if not borttagen:  # om ingen med inskrivet namn existerar bland listan
                         print(f"Det finns ingen person med namnet {namn} i bussen.")
+            else:
+                print("Ogiltig inmatning")
         except Exception:  # för att göra inmatningssäkert
             print("Ogiltig inmatning, vänligen försök igen.")
             gå_av()
@@ -167,7 +168,7 @@ def buss_sort():
     if len(buss) == 0:
         print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
     else:
-        sortera_efter = input("Sortera efter namn eller ålder?" "\n-> ")
+        sortera_efter = input("Sortera efter namn eller ålder?" "\n-> ").lower()
         if sortera_efter == "namn":
             buss.sort(key=efter_namn)  # använder funktionen efter_namn() som finns ovan
             print("Listan sorterad efter bokstavsordning." "\n")
