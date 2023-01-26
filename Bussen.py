@@ -125,6 +125,7 @@ def skriv_ut():
 # Skriver ut den sammanlagda åldern på passagerarna.
 def sammanlagd_ålder():
     ålder_tot = 0
+
     for person in buss:  # lägger ihop allas åldrar i en variabel
         ålder_tot += person.ålder
     print(f"Den sammanlagda åldern av passagerarna är {ålder_tot}")
@@ -232,7 +233,7 @@ def peta():
         else:
             print("Otillåten inmatning, vänligen försök igen.")
 
-
+# För att hitta och skriva ut passagerare av ett visst kön
 def hitta_passagerare_kön():
     if len(buss) == 0:
         print("Det finns inga passagerare på bussen. Börja med att lägga till några!")
@@ -248,7 +249,6 @@ def hitta_passagerare_kön():
 
 # ------------------------------ Huvudprogram --------------------------------- #
 def main():
-    meny_val = ""
 
     while True:  # loop för att alltid komma tillbaka till "main menu" efter felinmatning eller
                  # om en delfunktion är färdigkörd
@@ -313,4 +313,4 @@ def main():
             print("Ogiltig inmatning, vänligen ge ett värde på 1-10 eller 'q'")
 
 
-main()  # repeterar programmet efter färdig körning
+main()  # Startar programmet
