@@ -102,6 +102,7 @@ def gå_av():
                     for index in range(len(buss)):  # går igenom alla bussens index
                         if buss[index].get_namn() == namn:  # när någon av objektens namn stämmer av tas objektet bort
                             buss.pop(index)
+                            använda_namn.pop(index)
                             print(f"{namn} gick av.")
                             borttagen = True
                             break
